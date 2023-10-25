@@ -5,12 +5,14 @@ import "./index.css";
 
 import Home from "./pages/Home";
 import Error from "./pages/Error";
+import Header from "./components/Header";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<Error />} />
