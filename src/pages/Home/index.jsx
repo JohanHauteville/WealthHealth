@@ -1,10 +1,11 @@
 import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
+import Modal from "../../components/Modal";
 
 function Home() {
   return (
     <>
-      <main className="home-page">
+      <main className="page">
         <section className="create-form-container">
           <div className="create-form-container__left-side">
             <h1>HRnet</h1>
@@ -13,7 +14,7 @@ function Home() {
           </div>
           <div className="create-form-container__right-side">
             <h2>Create Employee</h2>
-            <form action="#">
+            <form action="#" className="create-form">
               <label htmlFor="first-name">First Name</label>
               <input type="text" id="first-name" />
 
@@ -53,6 +54,11 @@ function Home() {
             <button>Save</button>
             {/* <button onClick="saveEmployee()">Save</button> */}
           </div>
+          <Modal
+            visible={false}
+            message={"Ceci est le message de la modale"}
+            error={true}
+          />
           {/* <div id="confirmation" class="modal">
             Employee Created!
           </div> */}

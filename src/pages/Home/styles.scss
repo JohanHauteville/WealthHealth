@@ -1,15 +1,23 @@
-.home-page {
+.page {
   display: flex;
   justify-content: center;
-  height: 650px;
+  margin-top: 120px;
+  // height: 650px;
 }
 
 .create-form-container {
   box-shadow: 5px 2px 20px 10px rgb(0 0 0 / 12%);
   border-radius: 10px;
   height: 100%;
-  width: 80%;
+  width: 70%;
+  max-width: 950px;
   display: flex;
+  h2 {
+    color: #596521;
+    margin: 0 0 20px 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
   &__left-side {
     background-color: #73832c;
     border-top-left-radius: 10px;
@@ -36,10 +44,57 @@
     width: 50%;
     display: flex;
     flex-direction: column;
+    // h2 {
+    //   text-transform: capitalize;
+    // }
     form,
     .form-address {
       display: flex;
       flex-direction: column;
     }
+    button {
+      margin-top: 14px;
+    }
+  }
+}
+
+.create-form {
+  label,
+  fieldset {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #000000a2;
+  }
+  input,
+  select {
+    height: 30px;
+    border-radius: 5px;
+    background-color: #73832c09;
+    // border-color: #73832c;
+    border: 1px solid #73832c;
+    margin-bottom: 10px;
+  }
+  select {
+    height: 34px;
+  }
+  fieldset {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #73832c7c;
+  }
+}
+
+button {
+  color: #fff;
+  font-weight: 700;
+  background-color: #73832c;
+  outline: inherit;
+  border: none;
+  cursor: pointer;
+  height: 34px;
+  border-radius: 5px;
+  &:hover {
+    background-color: #596521;
   }
 }

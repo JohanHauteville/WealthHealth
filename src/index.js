@@ -3,8 +3,12 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 
+import { APP_ROUTES } from "./utils/constants";
+
 import Home from "./pages/Home";
 import Error from "./pages/Error";
+import EmployeesList from "./pages/EmployeesList";
+
 import Header from "./components/Header";
 import reportWebVitals from "./reportWebVitals";
 
@@ -14,8 +18,9 @@ root.render(
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="*" element={<Error />} />
+        <Route path={APP_ROUTES.CREATE_EMPLOYEE} element={<Home />} />
+        <Route path={APP_ROUTES.EMPLOYEES} element={<EmployeesList />} />
+        <Route path={APP_ROUTES.ERROR} element={<Error />} />
       </Routes>
     </Router>
   </React.StrictMode>
