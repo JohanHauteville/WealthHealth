@@ -1,20 +1,6 @@
 import "./styles.scss";
-import { PiCheckCircleDuotone } from "react-icons/pi";
-import { ImCross } from "react-icons/im";
-import { IconContext } from "react-icons";
-import { useEffect, useState } from "react";
 
 function Modal({ message, visible, error }) {
-  const [iconStyle, setIconStyle] = useState("icon icon--valid");
-
-  useEffect(() => {
-    if (error) {
-      setIconStyle("icon icon--error");
-    } else {
-      setIconStyle("icon icon--valid");
-    }
-  }, [error]);
-
   return (
     <div
       className={
@@ -22,10 +8,13 @@ function Modal({ message, visible, error }) {
       }
     >
       <div className="modal__container">
-        <IconContext.Provider value={{ className: iconStyle }}>
-          {error === true ? <ImCross /> : <PiCheckCircleDuotone />}
-        </IconContext.Provider>
+        {error === true ? (
+          <i className="fa-regular fa-circle-xmark icon icon--error "></i>
+        ) : (
+          <i className="fa-regular fa-circle-check icon icon--valid"></i>
+        )}
         <p className="modal__message">{message}</p>
+        <i className="fa-solid fa-circle-xmark icon icon--close"></i>
       </div>
     </div>
   );

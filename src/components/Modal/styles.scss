@@ -15,22 +15,34 @@
   }
   &__container {
     position: relative;
+    display: flex;
+    align-items: center;
     background-color: #fff;
     border-radius: 10px;
-    padding: 5px 20px 5px 50px;
+    padding: 5px 40px 5px 20px;
     box-shadow: 5px 2px 20px 10px rgb(0 0 0 / 12%);
+  }
+  &__message {
+    font-weight: 500;
+    color: #4b4b4b;
   }
 }
 
 .icon {
-  position: absolute;
-  left: 10px;
-  top: 14px;
   font-size: 2em;
   &--valid {
-    color: green;
+    color: #73832c;
+    margin-right: 20px;
   }
   &--error {
-    color: red;
+    color: #c52525;
+    margin-right: 20px;
+  }
+  &--close {
+    color: #596521;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    cursor: pointer;
   }
 }

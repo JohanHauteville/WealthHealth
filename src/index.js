@@ -5,7 +5,7 @@ import "./index.css";
 
 import { APP_ROUTES } from "./utils/constants";
 
-import Home from "./pages/Home";
+import CreateEmployee from "./pages/CreateEmployee";
 import Error from "./pages/Error";
 import EmployeesList from "./pages/EmployeesList";
 
@@ -18,8 +18,8 @@ root.render(
     <Router>
       <Header />
       <Routes>
-        <Route path={APP_ROUTES.CREATE_EMPLOYEE} element={<Home />} />
-        <Route path={APP_ROUTES.EMPLOYEES} element={<EmployeesList />} />
+        <Route path={APP_ROUTES.CREATE_EMPLOYEE} element={<CreateEmployee />} />
+        <Route path={APP_ROUTES.HOME} element={<EmployeesList />} />
         <Route path={APP_ROUTES.ERROR} element={<Error />} />
       </Routes>
     </Router>

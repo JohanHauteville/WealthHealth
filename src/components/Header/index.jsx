@@ -6,7 +6,7 @@ function Header() {
   return (
     <header>
       <div className="header__title">
-        <Link to={APP_ROUTES.CREATE_EMPLOYEE}>HRnet</Link>
+        <Link to={APP_ROUTES.HOME}>HRnet</Link>
       </div>
       <nav>
         <ul>
@@ -14,7 +14,7 @@ function Header() {
             <Link to={APP_ROUTES.CREATE_EMPLOYEE}>Create Employee</Link>
           </li>
           <li>
-            <Link to={APP_ROUTES.EMPLOYEES}>View Current Employees</Link>
+            <Link to={APP_ROUTES.HOME}>View Current Employees</Link>
           </li>
         </ul>
       </nav>

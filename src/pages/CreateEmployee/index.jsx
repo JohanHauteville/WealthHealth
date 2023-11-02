@@ -1,8 +1,17 @@
 import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
 import Modal from "../../components/Modal";
+import Dropdown from "../../components/Dropdown";
 
-function Home() {
+const departmentList = [
+  "Sales",
+  "Marketing",
+  "Engineering",
+  "Human Ressources",
+  "Legal",
+];
+
+function CreateEmployee() {
   return (
     <>
       <main className="page">
@@ -43,13 +52,14 @@ function Home() {
                 <input id="zip-code" type="number" />
               </fieldset>
               <label htmlFor="department">Department</label>
-              <select name="department" id="department">
+              {/* <select name="department" id="department">
                 <option>Sales</option>
                 <option>Marketing</option>
                 <option>Engineering</option>
                 <option>Human Resources</option>
                 <option>Legal</option>
-              </select>
+              </select> */}
+              <Dropdown name="department" itemList={departmentList} />
             </form>
             <button>Save</button>
             {/* <button onClick="saveEmployee()">Save</button> */}
@@ -57,7 +67,7 @@ function Home() {
           <Modal
             visible={false}
             message={"Ceci est le message de la modale"}
-            error={true}
+            error={false}
           />
           {/* <div id="confirmation" class="modal">
             Employee Created!
@@ -68,4 +78,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default CreateEmployee;
