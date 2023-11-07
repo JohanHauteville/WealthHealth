@@ -1,16 +1,17 @@
 .select-container {
-  //   width: 100%;
   height: 30px;
   border-radius: 5px;
   background-color: #73832c09;
-  // border-color: #73832c;
   border: 1px solid #73832c;
   margin-bottom: 10px;
   position: relative;
   display: flex;
   align-items: center;
   padding-left: 10px;
-  &.fa-chevron-up {
+  & .fa-chevron-up,
+  .fa-chevron-down {
+    margin-right: 5px;
+    font-size: 12px;
   }
 }
 

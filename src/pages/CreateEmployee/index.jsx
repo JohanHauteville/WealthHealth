@@ -2,6 +2,7 @@ import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
+import { useState } from "react";
 
 const departmentList = [
   "Sales",
@@ -12,8 +13,11 @@ const departmentList = [
 ];
 
 function CreateEmployee() {
+  const [departmentValue, setDepartmentValue] = useState(departmentList[0]);
+
   return (
     <>
+      {console.log(departmentValue)}
       <main className="page">
         <section className="create-form-container">
           <div className="create-form-container__left-side">
@@ -59,7 +63,11 @@ function CreateEmployee() {
                 <option>Human Resources</option>
                 <option>Legal</option>
               </select> */}
-              <Dropdown name="department" itemList={departmentList} />
+              <Dropdown
+                name="department"
+                itemList={departmentList}
+                onChange={setDepartmentValue}
+              />
             </form>
             <button>Save</button>
             {/* <button onClick="saveEmployee()">Save</button> */}

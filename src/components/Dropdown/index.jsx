@@ -1,19 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./styles.scss";
 
 function Dropdown({ name, itemList, onChange }) {
   const [isSelectOpened, setIsSelectOpened] = useState(false);
   const [selectValue, setSelectValue] = useState(itemList[0]);
   const [icon, setIcon] = useState("fa-solid fa-chevron-down");
+  const dropdownRef = useRef(null);
 
   const handleSelectClick = () => {
     setIsSelectOpened(!isSelectOpened);
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsSelectOpened(false);
+    }
+  };
+
   useEffect(() => {
+    if (isSelectOpened) {
+      document.addEventListener("click", handleClickOutside, true);
+    } else {
+      document.removeEventListener("click", handleClickOutside, true);
+    }
+
     isSelectOpened
       ? setIcon("fa-solid fa-chevron-up")
       : setIcon("fa-solid fa-chevron-down");
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
   }, [isSelectOpened]);
 
   return (
@@ -29,6 +46,7 @@ function Dropdown({ name, itemList, onChange }) {
       </div>
       <i className={icon}></i>
       <div
+        ref={dropdownRef}
         className={
           isSelectOpened === false
             ? "select-items select-hide"
@@ -42,6 +60,7 @@ function Dropdown({ name, itemList, onChange }) {
               key={item}
               onClick={() => {
                 setSelectValue(item);
+                onChange(item);
                 setIsSelectOpened(!isSelectOpened);
               }}
             >
