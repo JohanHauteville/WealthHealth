@@ -22,7 +22,10 @@
 
 .select-items {
   position: absolute;
+  z-index: 10;
   width: 100%;
+  max-height: 120px;
+  overflow: auto;
   top: 32px;
   left: 0;
   background-color: #fff;

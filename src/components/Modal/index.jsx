@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import "./styles.scss";
 
-function Modal({ message, visible, error }) {
+function Modal({ message, visible, error, setVisible }) {
+  // const [isVisible, setIsVisible] = useState(visible);
+
   return (
     <div
       className={
@@ -14,7 +17,10 @@ function Modal({ message, visible, error }) {
           <i className="fa-regular fa-circle-check icon icon--valid"></i>
         )}
         <p className="modal__message">{message}</p>
-        <i className="fa-solid fa-circle-xmark icon icon--close"></i>
+        <i
+          className="fa-solid fa-circle-xmark icon icon--close"
+          onClick={() => setVisible(!visible)}
+        ></i>
       </div>
     </div>
   );

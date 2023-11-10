@@ -1,9 +1,16 @@
+/**
+ * DropDown component
+ *
+ * @author Johan
+ * @version 1.0
+ */
+
 import { useEffect, useState, useRef } from "react";
 import "./styles.scss";
 
-function Dropdown({ name, itemList, onChange }) {
+function Dropdown({ defaultName, name, itemList, onChange }) {
   const [isSelectOpened, setIsSelectOpened] = useState(false);
-  const [selectValue, setSelectValue] = useState(itemList[0]);
+  const [selectValue, setSelectValue] = useState(defaultName);
   const [icon, setIcon] = useState("fa-solid fa-chevron-down");
   const dropdownRef = useRef(null);
 
@@ -53,21 +60,37 @@ function Dropdown({ name, itemList, onChange }) {
             : "select-items select-show"
         }
       >
-        {itemList.map((item) => {
-          return (
-            <div
-              className="select-item"
-              key={item}
-              onClick={() => {
-                setSelectValue(item);
-                onChange(item);
-                setIsSelectOpened(!isSelectOpened);
-              }}
-            >
-              {item}
-            </div>
-          );
-        })}
+        {typeof itemList[0] === "string"
+          ? itemList.map((item) => {
+              return (
+                <div
+                  className="select-item"
+                  key={item}
+                  onClick={() => {
+                    setSelectValue(item);
+                    onChange(item);
+                    setIsSelectOpened(!isSelectOpened);
+                  }}
+                >
+                  {item}
+                </div>
+              );
+            })
+          : itemList.map((item) => {
+              return (
+                <div
+                  className="select-item"
+                  key={item.name}
+                  onClick={() => {
+                    setSelectValue(item.name);
+                    onChange(item.abbreviation);
+                    setIsSelectOpened(!isSelectOpened);
+                  }}
+                >
+                  {item.name}
+                </div>
+              );
+            })}
       </div>
     </div>
   );

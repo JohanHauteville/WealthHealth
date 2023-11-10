@@ -3,21 +3,19 @@ import "./styles.scss";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
 import { useState } from "react";
-
-const departmentList = [
-  "Sales",
-  "Marketing",
-  "Engineering",
-  "Human Ressources",
-  "Legal",
-];
+import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 
 function CreateEmployee() {
-  const [departmentValue, setDepartmentValue] = useState(departmentList[0]);
+  const [departmentValue, setDepartmentValue] = useState(DEPARTMENT_LIST[0]);
+  const [stateValue, setStateValue] = useState(STATES_LIST[0].abbreviation);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function saveEmployee() {
+    setModalVisible(true);
+  }
 
   return (
     <>
-      {console.log(departmentValue)}
       <main className="page">
         <section className="create-form-container">
           <div className="create-form-container__left-side">
@@ -50,30 +48,31 @@ function CreateEmployee() {
                 <input id="city" type="text" />
 
                 <label htmlFor="state">State</label>
-                <select name="state" id="state"></select>
+                {/* <select name="state" id="state"></select> */}
+                <Dropdown
+                  defaultName="Select a State"
+                  name="state"
+                  itemList={STATES_LIST}
+                  onChange={setStateValue}
+                />
 
                 <label htmlFor="zip-code">Zip Code</label>
                 <input id="zip-code" type="number" />
               </fieldset>
               <label htmlFor="department">Department</label>
-              {/* <select name="department" id="department">
-                <option>Sales</option>
-                <option>Marketing</option>
-                <option>Engineering</option>
-                <option>Human Resources</option>
-                <option>Legal</option>
-              </select> */}
               <Dropdown
+                defaultName="Select a department"
                 name="department"
-                itemList={departmentList}
+                itemList={DEPARTMENT_LIST}
                 onChange={setDepartmentValue}
               />
             </form>
-            <button>Save</button>
-            {/* <button onClick="saveEmployee()">Save</button> */}
+            {/* <button>Save</button> */}
+            <button onClick={saveEmployee}>Save</button>
           </div>
           <Modal
-            visible={false}
+            visible={modalVisible}
+            setVisible={() => setModalVisible()}
             message={"Ceci est le message de la modale"}
             error={false}
           />
