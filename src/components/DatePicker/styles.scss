@@ -1,0 +1,64 @@
+.calendar {
+  background-color: #fff;
+
+  padding: 10px;
+  box-shadow: 5px 2px 20px 10px rgb(0 0 0 / 12%);
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 250px;
+    &--actual-day {
+      outline: 1px solid rgb(151, 166, 85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 30px;
+      font-size: 12px;
+      background-color: #a2b064;
+      color: #fff;
+      font-weight: 700;
+    }
+    &--day {
+      outline: 1px solid rgb(151, 166, 85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 30px;
+      font-size: 12px;
+      background-color: #fff;
+      &:hover {
+        color: #fff;
+        background-color: #73832c;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    }
+    &--day-empty {
+      outline: 1px solid rgb(151, 166, 85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 30px;
+      font-size: 12px;
+      background-color: #e4e4e4;
+      color: #999999;
+    }
+    &--dayName {
+      height: 20px;
+      color: #e6edc5;
+      background-color: #a1b259;
+      outline: 1px solid rgb(151, 166, 85);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //   margin-bottom: 8px;
+    }
+  }
+}

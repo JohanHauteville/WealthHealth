@@ -258,3 +258,8 @@ export const STATES_LIST = [
     abbreviation: "WY",
   },
 ];
+
+export const NAMES_BY_DAYS = {
+  EN: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  FR: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+};
