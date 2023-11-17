@@ -263,3 +263,21 @@ export const NAMES_BY_DAYS = {
   EN: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
   FR: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
 };
+
+export const NAMES_BY_MONTH = {
+  EN: [""],
+  FR: [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+  ],
+};

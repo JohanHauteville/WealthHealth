@@ -4,6 +4,7 @@ import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
 import { useState } from "react";
 import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
+import DatePicker from "../../components/DatePicker";
 
 function CreateEmployee() {
   const [departmentValue, setDepartmentValue] = useState(DEPARTMENT_LIST[0]);
@@ -33,7 +34,8 @@ function CreateEmployee() {
               <input type="text" id="last-name" />
 
               <label htmlFor="date-of-birth">Date of Birth</label>
-              <input id="date-of-birth" type="text" />
+              {/* <input id="date-of-birth" type="text" /> */}
+              <DatePicker />
 
               <label htmlFor="start-date">Start Date</label>
               <input id="start-date" type="text" />
