@@ -1,6 +1,6 @@
 import "./styles.scss";
 import { NAMES_BY_DAYS, NAMES_BY_MONTH } from "../../utils/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function getDaysInMonth(year, month) {
   const lastDay = new Date(year, month, 0).getDate(); // Récupère le dernier jour du mois spécifié
@@ -30,21 +30,65 @@ function DisplayPreviousDays({ date }) {
   return previousDays;
 }
 
-function DatePicker() {
+function YearsScreen({ date, setDate, setIsClosed }) {
+  const yearsArray = [];
+  for (let i = -10; i <= 10; i++) {
+    yearsArray.push(
+      <div
+        key={"year-" + (date.getFullYear() + i)}
+        onClick={() => {
+          const updateDate = new Date(date);
+          updateDate.setFullYear(date.getFullYear() + i);
+          setDate(updateDate);
+          setIsClosed(false);
+        }}
+      >
+        {date.getFullYear() + i}
+      </div>
+    );
+  }
+
+  return <div className="calendar__page">{yearsArray}</div>;
+}
+
+function DatePicker({ majority }) {
   const [isVisible, setIsVisible] = useState(false);
   const [dateDisplay, setdateDisplay] = useState("Select a date");
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [temporaryDate, settemporaryDate] = useState(new Date());
+  const [MonthSelectIsVisible, setMonthSelectIsVisible] = useState(false);
+  const [yearSelectIsVisible, setYearSelectIsVisible] = useState(false);
+  const [currentDate, setCurrentDate] = useState(() => {
+    const date = new Date();
+    if (majority) {
+      date.setFullYear(date.getFullYear() - 18);
+    }
+    return date;
+  });
+  const [temporaryDate, setTemporaryDate] = useState(() => {
+    const date = new Date();
+    if (majority) {
+      date.setFullYear(date.getFullYear() - 18);
+    }
+    return date;
+  });
   const [actualDay, setActualDay] = useState(currentDate.getDate());
   const [actualMonth, setActualMonth] = useState(currentDate.getMonth() + 1);
   const [actualYear, setActualYear] = useState(currentDate.getFullYear());
 
   const daysInCurrentMonth = getDaysInMonth(actualYear, actualMonth);
-  const daysInPreviousMonth = getDaysInMonth(actualYear, actualMonth - 1);
   const firstDayOfTheMonth = getDayOfWeek(actualMonth, actualYear);
+
+  const datePickerRef = useRef(null);
 
   const maxArrayHeight =
     firstDayOfTheMonth + daysInCurrentMonth.length > 35 ? 42 : 35;
+  const handleClickOutside = (event) => {
+    if (
+      datePickerRef.current &&
+      !datePickerRef.current.contains(event.target)
+    ) {
+      setIsVisible(false);
+    }
+  };
 
   useEffect(() => {
     setActualDay(temporaryDate.getDate());
@@ -52,20 +96,69 @@ function DatePicker() {
     setActualYear(temporaryDate.getFullYear());
   }, [temporaryDate]);
 
+  useEffect(() => {
+    if (isVisible) {
+      document.addEventListener("click", handleClickOutside, true);
+    } else {
+      document.removeEventListener("click", handleClickOutside, true);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, [isVisible]);
+
   return (
     <div className="calendar-container">
-      <div className="calendar-input" onClick={() => setIsVisible(!isVisible)}>
+      <div
+        className="calendar-input"
+        onClick={() => {
+          setIsVisible(!isVisible);
+          setYearSelectIsVisible(false);
+          setMonthSelectIsVisible(false);
+        }}
+      >
         {dateDisplay}
       </div>
       {isVisible && (
-        <div className="calendar">
+        <div className="calendar" ref={datePickerRef}>
+          {MonthSelectIsVisible && (
+            <div className="calendar__page">
+              {NAMES_BY_MONTH.EN.map((month, indice) => {
+                return (
+                  <div
+                    key={month}
+                    onClick={() => {
+                      const updateDate = new Date(temporaryDate);
+                      updateDate.setMonth(indice);
+                      setTemporaryDate(updateDate);
+                      setMonthSelectIsVisible(false);
+                      setdateDisplay(
+                        actualDay + "/" + actualMonth + "/" + actualYear
+                      );
+                    }}
+                  >
+                    {month}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {yearSelectIsVisible && (
+            <YearsScreen
+              date={temporaryDate}
+              setDate={setTemporaryDate}
+              setIsClosed={setYearSelectIsVisible}
+            />
+          )}
+
           <div className="calendar__navigation">
             <i
               className="fa-solid fa-chevron-left"
               onClick={() => {
                 const updatedDate = new Date(temporaryDate);
                 updatedDate.setMonth(updatedDate.getMonth() - 1);
-                settemporaryDate(updatedDate);
+                setTemporaryDate(updatedDate);
               }}
             ></i>
             <i
@@ -73,7 +166,7 @@ function DatePicker() {
               onClick={() => {
                 const resetDate = new Date();
                 setCurrentDate(resetDate);
-                settemporaryDate(resetDate);
+                setTemporaryDate(resetDate);
                 setdateDisplay(
                   resetDate.getDate() +
                     "/" +
@@ -83,16 +176,24 @@ function DatePicker() {
                 );
               }}
             ></i>
-            <div className="calendar__navigation--month">
-              {NAMES_BY_MONTH.FR[actualMonth - 1]}
+            <div
+              className="calendar__navigation--month"
+              onClick={() => setMonthSelectIsVisible(!MonthSelectIsVisible)}
+            >
+              {NAMES_BY_MONTH.EN[actualMonth - 1]}
             </div>
-            <div className="calendar__navigation--year">{actualYear}</div>
+            <div
+              className="calendar__navigation--year"
+              onClick={() => setYearSelectIsVisible(!yearSelectIsVisible)}
+            >
+              {actualYear}
+            </div>
             <i
               className="fa-solid fa-chevron-right"
               onClick={() => {
                 const updatedDate = new Date(temporaryDate);
                 updatedDate.setMonth(updatedDate.getMonth() + 1);
-                settemporaryDate(updatedDate);
+                setTemporaryDate(updatedDate);
               }}
             ></i>
           </div>
@@ -127,7 +228,7 @@ function DatePicker() {
                   onClick={() => {
                     const updatedDate = new Date(temporaryDate);
                     updatedDate.setDate(day);
-                    settemporaryDate(updatedDate);
+                    setTemporaryDate(updatedDate);
                     setCurrentDate(updatedDate);
                     setdateDisplay(
                       updatedDate.getDate() +
@@ -136,7 +237,7 @@ function DatePicker() {
                         "/" +
                         updatedDate.getFullYear()
                     );
-                    setIsVisible(!isVisible);
+                    setIsVisible(false);
                   }}
                 >
                   {day}
