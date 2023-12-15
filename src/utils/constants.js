@@ -265,7 +265,20 @@ export const NAMES_BY_DAYS = {
 };
 
 export const NAMES_BY_MONTH = {
-  EN: [""],
+  EN: [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ],
   FR: [
     "Janvier",
     "Février",

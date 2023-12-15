@@ -1,11 +1,12 @@
 import "./styles.scss";
-import DatePicker from "../../components/DatePicker";
+import Table from "easy-react-table-component/dist/Table";
 
 function EmployeesList() {
   return (
     <main className="employees-page">
       <h2>Current Employees</h2>
-      <DatePicker />
+      {/* <DatePicker /> */}
+      <Table />
     </main>
   );
 }

@@ -35,10 +35,11 @@ function CreateEmployee() {
 
               <label htmlFor="date-of-birth">Date of Birth</label>
               {/* <input id="date-of-birth" type="text" /> */}
-              <DatePicker />
+              <DatePicker majority={true} />
 
               <label htmlFor="start-date">Start Date</label>
-              <input id="start-date" type="text" />
+              {/* <input id="start-date" type="text" /> */}
+              <DatePicker />
 
               <fieldset className="form-address">
                 <legend>Address</legend>

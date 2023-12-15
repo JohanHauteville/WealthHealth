@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 
+import { Provider } from "react-redux";
+import store from "./store/store";
+
 import { APP_ROUTES } from "./utils/constants";
 
 import CreateEmployee from "./pages/CreateEmployee";
@@ -15,14 +18,19 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Header />
-      <Routes>
-        <Route path={APP_ROUTES.CREATE_EMPLOYEE} element={<CreateEmployee />} />
-        <Route path={APP_ROUTES.HOME} element={<EmployeesList />} />
-        <Route path={APP_ROUTES.ERROR} element={<Error />} />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            path={APP_ROUTES.CREATE_EMPLOYEE}
+            element={<CreateEmployee />}
+          />
+          <Route path={APP_ROUTES.HOME} element={<EmployeesList />} />
+          <Route path={APP_ROUTES.ERROR} element={<Error />} />
+        </Routes>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 
