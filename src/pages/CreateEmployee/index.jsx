@@ -7,11 +7,28 @@ import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 import DatePicker from "../../components/DatePicker";
 
 function CreateEmployee() {
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
   const [departmentValue, setDepartmentValue] = useState(DEPARTMENT_LIST[0]);
+  // const [birthDate, setBirthDate] = useState("");
   const [stateValue, setStateValue] = useState(STATES_LIST[0].abbreviation);
   const [modalVisible, setModalVisible] = useState(false);
 
-  function saveEmployee() {
+  function saveEmployee(e) {
+    const firstName = document.getElementById("first-name").value;
+    const lastName = document.getElementById("last-name").value;
+
+    console.log("FirstName: " + firstName);
+    console.log("LastName: " + lastName);
+    console.log("Department: " + departmentValue);
+    console.log("State: " + stateValue);
+    // console.log("BirthDate: " + birthDate);
+    const birthDate = document.getElementById("date-of-birth").innerHTML;
+    const startDate = document.getElementById("start-date").innerHTML;
+    // console.log(document.getElementById("first-name"));
+    console.log("BirthDate: " + birthDate);
+    console.log("Start Date: " + startDate);
+
     setModalVisible(true);
   }
 
@@ -28,6 +45,7 @@ function CreateEmployee() {
             <h2>Create Employee</h2>
             <form action="#" className="create-form">
               <label htmlFor="first-name">First Name</label>
+
               <input type="text" id="first-name" />
 
               <label htmlFor="last-name">Last Name</label>
@@ -35,11 +53,15 @@ function CreateEmployee() {
 
               <label htmlFor="date-of-birth">Date of Birth</label>
               {/* <input id="date-of-birth" type="text" /> */}
-              <DatePicker majority={true} />
+              <DatePicker
+                id="date-of-birth"
+                majority={true}
+                // setValue={() => setBirthDate()}
+              />
 
               <label htmlFor="start-date">Start Date</label>
               {/* <input id="start-date" type="text" /> */}
-              <DatePicker />
+              <DatePicker id="start-date" />
 
               <fieldset className="form-address">
                 <legend>Address</legend>
