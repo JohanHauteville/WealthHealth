@@ -2,7 +2,7 @@
  * DropDown component
  *
  * @author Johan
- * @version 1.0
+ * @version 1.1
  */
 
 import { useEffect, useState, useRef } from "react";
@@ -68,7 +68,7 @@ function Dropdown({ defaultName, name, itemList, onChange }) {
                   key={item}
                   onClick={() => {
                     setSelectValue(item);
-                    onChange(item);
+                    // onChange(item);
                     setIsSelectOpened(!isSelectOpened);
                   }}
                 >
@@ -83,7 +83,7 @@ function Dropdown({ defaultName, name, itemList, onChange }) {
                   key={item.name}
                   onClick={() => {
                     setSelectValue(item.name);
-                    onChange(item.abbreviation);
+                    // onChange(item.abbreviation);
                     setIsSelectOpened(!isSelectOpened);
                   }}
                 >

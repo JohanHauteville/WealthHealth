@@ -17,18 +17,33 @@ function CreateEmployee() {
   function saveEmployee(e) {
     const firstName = document.getElementById("first-name").value;
     const lastName = document.getElementById("last-name").value;
+    const department = document.getElementById("department").innerHTML;
+    const state = document.getElementById("state").innerHTML;
+    console.log("----- PROFILE ----- ");
 
     console.log("FirstName: " + firstName);
     console.log("LastName: " + lastName);
-    console.log("Department: " + departmentValue);
-    console.log("State: " + stateValue);
+
     // console.log("BirthDate: " + birthDate);
     const birthDate = document.getElementById("date-of-birth").innerHTML;
     const startDate = document.getElementById("start-date").innerHTML;
     // console.log(document.getElementById("first-name"));
+    const city = document.getElementById("city").value;
+    const street = document.getElementById("street").value;
     console.log("BirthDate: " + birthDate);
     console.log("Start Date: " + startDate);
+    console.log("Department: " + department);
 
+    console.log("----- Address ----- ");
+    console.log("City:" + city);
+    console.log("Street: " + street);
+    console.log("State: " + state);
+
+    const formData = new FormData();
+    console.log(formData);
+    // for (const pair of formData.entries()) {
+    //   return console.log(`${pair[0]}, ${pair[1]}`);
+    // }
     setModalVisible(true);
   }
 
@@ -75,8 +90,8 @@ function CreateEmployee() {
                 <label htmlFor="state">State</label>
                 {/* <select name="state" id="state"></select> */}
                 <Dropdown
-                  defaultName="Select a State"
                   name="state"
+                  defaultName="Select a State"
                   itemList={STATES_LIST}
                   onChange={setStateValue}
                 />
@@ -86,14 +101,16 @@ function CreateEmployee() {
               </fieldset>
               <label htmlFor="department">Department</label>
               <Dropdown
-                defaultName="Select a department"
                 name="department"
+                defaultName="Select a department"
                 itemList={DEPARTMENT_LIST}
-                onChange={setDepartmentValue}
+                // onChange={setDepartmentValue}
               />
             </form>
             {/* <button>Save</button> */}
-            <button onClick={saveEmployee}>Save</button>
+            <button type="submit" onClick={saveEmployee}>
+              Save
+            </button>
           </div>
           <Modal
             visible={modalVisible}

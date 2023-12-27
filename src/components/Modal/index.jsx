@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import "./styles.scss";
 
 function Modal({ message, visible, error, setVisible }) {
