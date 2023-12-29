@@ -1,11 +1,7 @@
 import "./styles.scss";
 import { NAMES_BY_DAYS, NAMES_BY_MONTH } from "../../utils/constants";
 import { useEffect, useState, useRef, useMemo } from "react";
-import {
-  DisplayPreviousDays,
-  // ActualsDaysInMonth,
-  RemainingDaysToDisplay,
-} from "./components";
+import { DisplayPreviousDays, RemainingDaysToDisplay } from "./components";
 
 function getDaysInMonth(year, month) {
   const lastDay = new Date(year, month, 0).getDate(); // Récupère le dernier jour du mois spécifié
@@ -40,8 +36,9 @@ function YearsScreen({ date, setDate, setIsClosed }) {
 }
 
 function DatePicker({ id, majority, setValue }) {
+  const defaultMessage = "Select a date";
+  const [firstAttempt, setFirstAttempt] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  const [dateDisplay, setdateDisplay] = useState("Select a date");
   const [MonthSelectIsVisible, setMonthSelectIsVisible] = useState(false);
   const [yearSelectIsVisible, setYearSelectIsVisible] = useState(false);
   const [currentDate, setCurrentDate] = useState(() => {
@@ -58,16 +55,14 @@ function DatePicker({ id, majority, setValue }) {
     }
     return date;
   });
-  // const [actualDay, setActualDay] = useState(currentDate.getDate());
-  // const [actualMonth, setActualMonth] = useState(currentDate.getMonth() + 1);
-  // const daysInCurrentMonth = getDaysInMonth(actualYear, actualMonth);
-  // const [actualYear, setActualYear] = useState(currentDate.getFullYear());
 
   const actualDay = useMemo(() => {
-    return temporaryDate.getDate();
+    const day = temporaryDate.getDate();
+    return day.toLocaleString("en-US", { minimumIntegerDigits: 2 });
   }, [temporaryDate]);
   const actualMonth = useMemo(() => {
-    return temporaryDate.getMonth() + 1;
+    const month = parseInt(temporaryDate.getMonth(), 10) + 1.0;
+    return month.toLocaleString("en-US", { minimumIntegerDigits: 2 });
   }, [temporaryDate]);
   const actualYear = useMemo(() => {
     return temporaryDate.getFullYear();
@@ -86,6 +81,14 @@ function DatePicker({ id, majority, setValue }) {
   }, [firstDayOfTheMonth, daysInCurrentMonth]);
 
   const datePickerRef = useRef(null);
+
+  const dateDisplay = useMemo(() => {
+    if (!firstAttempt) {
+      return actualDay + "/" + actualMonth + "/" + actualYear;
+    } else {
+      return defaultMessage;
+    }
+  }, [actualDay, actualMonth, actualYear, firstAttempt]);
 
   const handleClickOutside = (event) => {
     if (
@@ -110,7 +113,6 @@ function DatePicker({ id, majority, setValue }) {
 
   return (
     <div className="calendar-container">
-      {console.log("Rendering calendar...")}
       <div
         className="calendar-input"
         id={id}
@@ -120,7 +122,7 @@ function DatePicker({ id, majority, setValue }) {
           setMonthSelectIsVisible(false);
         }}
       >
-        {dateDisplay}
+        {actualDay && actualMonth && actualYear ? dateDisplay : defaultMessage}
       </div>
       {isVisible && (
         <div className="calendar" ref={datePickerRef}>
@@ -135,9 +137,6 @@ function DatePicker({ id, majority, setValue }) {
                       updateDate.setMonth(indice);
                       setTemporaryDate(updateDate);
                       setMonthSelectIsVisible(false);
-                      setdateDisplay(
-                        actualDay + "/" + actualMonth + "/" + actualYear
-                      );
                     }}
                   >
                     {month}
@@ -169,13 +168,6 @@ function DatePicker({ id, majority, setValue }) {
                 const resetDate = new Date();
                 setCurrentDate(resetDate);
                 setTemporaryDate(resetDate);
-                setdateDisplay(
-                  resetDate.getDate() +
-                    "/" +
-                    (resetDate.getMonth() + 1) +
-                    "/" +
-                    resetDate.getFullYear()
-                );
               }}
             ></i>
             <div
@@ -217,13 +209,18 @@ function DatePicker({ id, majority, setValue }) {
             <DisplayPreviousDays date={temporaryDate} />
 
             {/* Jours du mois en cours */}
-            {/* <ActualsDaysInMonth daysInCurrentMonth={daysInCurrentMonth} /> */}
             {daysInCurrentMonth.map((day) => {
               return (
                 <div
                   className={
-                    actualDay === day &&
-                    actualMonth === currentDate.getMonth() + 1
+                    parseInt(actualDay, 10) ===
+                      day.toLocaleString("en-US", {
+                        minimumIntegerDigits: 2,
+                      }) &&
+                    parseInt(actualMonth, 10) ===
+                      (currentDate.getMonth() + 1).toLocaleString("en-US", {
+                        minimumIntegerDigits: 2,
+                      })
                       ? "calendar__grid--actual-day"
                       : "calendar__grid--day"
                   }
@@ -233,14 +230,7 @@ function DatePicker({ id, majority, setValue }) {
                     updatedDate.setDate(day);
                     setTemporaryDate(updatedDate);
                     setCurrentDate(updatedDate);
-                    setdateDisplay(
-                      updatedDate.getDate() +
-                        "/" +
-                        (updatedDate.getMonth() + 1) +
-                        "/" +
-                        updatedDate.getFullYear()
-                    );
-                    console.log(dateDisplay);
+                    setFirstAttempt(false);
                     setIsVisible(false);
                   }}
                 >

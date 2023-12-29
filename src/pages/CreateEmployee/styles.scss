@@ -84,6 +84,15 @@
     border-radius: 10px;
     border: 1px solid #73832c7c;
   }
+  .error {
+    border: 1px solid #f51919;
+    color: #f51919;
+    font-weight: 500;
+  }
+  .valid {
+    border: 1px solid #73832c;
+    color: #73832c;
+  }
 }
 
 button {

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const { actions, reducer } = createSlice({
   name: "employees",
-  initialState: [],
+  initialState: { employees: [] },
   reducers: {
     add: (state, action) => {
       state.employees.push(action.payload);

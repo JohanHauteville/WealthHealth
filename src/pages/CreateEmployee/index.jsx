@@ -5,46 +5,43 @@ import Dropdown from "../../components/Dropdown";
 import { useState } from "react";
 import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 import DatePicker from "../../components/DatePicker";
+import { checkInput, getProfile } from "./functions";
+import { useDispatch } from "react-redux";
+import * as employeeActions from "../../features/employees";
 
 function CreateEmployee() {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  const [departmentValue, setDepartmentValue] = useState(DEPARTMENT_LIST[0]);
-  // const [birthDate, setBirthDate] = useState("");
-  const [stateValue, setStateValue] = useState(STATES_LIST[0].abbreviation);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalError, setModalError] = useState(true);
+  const defaultNameDepartment = "Select a department";
+  const defaultNameState = "Select a State";
 
-  function saveEmployee(e) {
-    const firstName = document.getElementById("first-name").value;
-    const lastName = document.getElementById("last-name").value;
-    const department = document.getElementById("department").innerHTML;
-    const state = document.getElementById("state").innerHTML;
-    console.log("----- PROFILE ----- ");
+  const dispatch = useDispatch();
+  function saveEmployee() {
+    dispatch(employeeActions.add(getProfile()));
+  }
 
-    console.log("FirstName: " + firstName);
-    console.log("LastName: " + lastName);
-
-    // console.log("BirthDate: " + birthDate);
-    const birthDate = document.getElementById("date-of-birth").innerHTML;
-    const startDate = document.getElementById("start-date").innerHTML;
-    // console.log(document.getElementById("first-name"));
-    const city = document.getElementById("city").value;
-    const street = document.getElementById("street").value;
-    console.log("BirthDate: " + birthDate);
-    console.log("Start Date: " + startDate);
-    console.log("Department: " + department);
-
-    console.log("----- Address ----- ");
-    console.log("City:" + city);
-    console.log("Street: " + street);
-    console.log("State: " + state);
-
-    const formData = new FormData();
-    console.log(formData);
-    // for (const pair of formData.entries()) {
-    //   return console.log(`${pair[0]}, ${pair[1]}`);
-    // }
-    setModalVisible(true);
+  function handleSubmit() {
+    if (
+      checkInput("first-name", "NAME") &&
+      checkInput("last-name", "NAME") &&
+      checkInput("city", "NAME") &&
+      checkInput("street", "STREET") &&
+      checkInput("date-of-birth", "DATE") &&
+      checkInput("start-date", "DATE") &&
+      checkInput("zip-code", "ZIPCODE") &&
+      checkInput("department", "NAME", defaultNameDepartment, true) &&
+      checkInput("state", "NAME", defaultNameState, true)
+    ) {
+      saveEmployee();
+      setModalError(false);
+      setModalMessage("Employee added !");
+      setModalVisible(true);
+    } else {
+      setModalError(true);
+      setModalMessage("Please correctly fill all inputs");
+      setModalVisible(true);
+    }
   }
 
   return (
@@ -61,66 +58,74 @@ function CreateEmployee() {
             <form action="#" className="create-form">
               <label htmlFor="first-name">First Name</label>
 
-              <input type="text" id="first-name" />
-
-              <label htmlFor="last-name">Last Name</label>
-              <input type="text" id="last-name" />
-
-              <label htmlFor="date-of-birth">Date of Birth</label>
-              {/* <input id="date-of-birth" type="text" /> */}
-              <DatePicker
-                id="date-of-birth"
-                majority={true}
-                // setValue={() => setBirthDate()}
+              <input
+                type="text"
+                id="first-name"
+                onBlur={() => checkInput("first-name", "NAME")}
               />
 
+              <label htmlFor="last-name">Last Name</label>
+              <input
+                type="text"
+                id="last-name"
+                onBlur={() => checkInput("last-name", "NAME")}
+              />
+
+              <label htmlFor="date-of-birth">Date of Birth</label>
+              <DatePicker id="date-of-birth" majority={true} />
+
               <label htmlFor="start-date">Start Date</label>
-              {/* <input id="start-date" type="text" /> */}
               <DatePicker id="start-date" />
 
               <fieldset className="form-address">
                 <legend>Address</legend>
 
                 <label htmlFor="street">Street</label>
-                <input id="street" type="text" />
+                <input
+                  id="street"
+                  type="text"
+                  onBlur={() => checkInput("street", "STREET")}
+                />
 
                 <label htmlFor="city">City</label>
-                <input id="city" type="text" />
+                <input
+                  id="city"
+                  type="text"
+                  onBlur={() => checkInput("city", "NAME")}
+                />
 
                 <label htmlFor="state">State</label>
                 {/* <select name="state" id="state"></select> */}
                 <Dropdown
                   name="state"
-                  defaultName="Select a State"
+                  defaultName={defaultNameState}
                   itemList={STATES_LIST}
-                  onChange={setStateValue}
                 />
 
                 <label htmlFor="zip-code">Zip Code</label>
-                <input id="zip-code" type="number" />
+                <input
+                  id="zip-code"
+                  type="number"
+                  onBlur={() => checkInput("zip-code", "ZIPCODE")}
+                />
               </fieldset>
               <label htmlFor="department">Department</label>
               <Dropdown
                 name="department"
-                defaultName="Select a department"
+                defaultName={defaultNameDepartment}
                 itemList={DEPARTMENT_LIST}
-                // onChange={setDepartmentValue}
               />
             </form>
-            {/* <button>Save</button> */}
-            <button type="submit" onClick={saveEmployee}>
+            <button type="submit" onClick={handleSubmit}>
               Save
             </button>
           </div>
           <Modal
             visible={modalVisible}
             setVisible={() => setModalVisible()}
-            message={"Ceci est le message de la modale"}
-            error={false}
+            message={modalMessage}
+            error={modalError}
           />
-          {/* <div id="confirmation" class="modal">
-            Employee Created!
-          </div> */}
         </section>
       </main>
     </>

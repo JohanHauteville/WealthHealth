@@ -294,3 +294,15 @@ export const NAMES_BY_MONTH = {
     "Décembre",
   ],
 };
+
+export const LIST_TO_DISPLAY = [
+  { dataName: "firstName", displayName: "First Name" },
+  { dataName: "lastName", displayName: "Last Name" },
+  { dataName: "startDate", displayName: "Start Date" },
+  { dataName: "dateOfBirth", displayName: "Date of Birth" },
+  { dataName: "department", displayName: "Department" },
+  { dataName: "street", displayName: "Street" },
+  { dataName: "city", displayName: "City" },
+  { dataName: "state", displayName: "State" },
+  { dataName: "zipCode", displayName: "Zip Code" },
+];
