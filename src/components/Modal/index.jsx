@@ -2,12 +2,13 @@
 import "./styles.scss";
 import * as modalActions from "../../features/modal";
 import { useDispatch } from "react-redux";
+
 /**
- *
+ * @name Modal-react-component
  * @param {String} message
  * @param {Boolean} visible
  * @param {Boolean} error
- * @returns
+ * @returns modal component
  */
 function Modal({ message, visible, error }) {
   const dispatch = useDispatch();

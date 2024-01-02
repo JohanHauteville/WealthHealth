@@ -1,42 +1,45 @@
 import "./styles.scss";
 import { NAMES_BY_DAYS, NAMES_BY_MONTH } from "../../utils/constants";
 import { useEffect, useState, useRef, useMemo } from "react";
-import { DisplayPreviousDays, RemainingDaysToDisplay } from "./components";
+import {
+  DisplayPreviousDays,
+  RemainingDaysToDisplay,
+  YearsScreen,
+  MonthsScreen,
+} from "./components";
 
+/**
+ *
+ * @param {String} year
+ * @param {String} month
+ * @returns An array ( from 1 to the last day)
+ */
 function getDaysInMonth(year, month) {
-  const lastDay = new Date(year, month, 0).getDate(); // Récupère le dernier jour du mois spécifié
-  return Array.from({ length: lastDay }, (_, index) => index + 1); // retourne un tableau ( partant de 1 jusqu'au dernier jour)
+  const lastDay = new Date(year, month, 0).getDate(); // Get the last day of specified month
+  return Array.from({ length: lastDay }, (_, index) => index + 1); // Return an array ( from 1 to the last day)
 }
 
+/**
+ *
+ * @param {String} month
+ * @param {String} year
+ * @returns Index representing the first day in a week of the month
+ */
 function getDayOfWeek(month, year) {
   const date = new Date(year + "-" + month);
   const dayOfWeekIndex = date.getDay();
   return dayOfWeekIndex;
 }
 
-function YearsScreen({ date, setDate, setIsClosed }) {
-  const yearsArray = [];
-  for (let i = -10; i <= 10; i++) {
-    yearsArray.push(
-      <div
-        key={"year-" + (date.getFullYear() + i)}
-        onClick={() => {
-          const updateDate = new Date(date);
-          updateDate.setFullYear(date.getFullYear() + i);
-          setDate(updateDate);
-          setIsClosed(false);
-        }}
-      >
-        {date.getFullYear() + i}
-      </div>
-    );
-  }
-
-  return <div className="calendar__page">{yearsArray}</div>;
-}
-
-function DatePicker({ id, majority, setValue }) {
+/**
+ * @name DatePicker-react-component
+ * @param {String} id
+ * @param {Boolean} majority (default date - 18 years) if true
+ * @returns DatePicker component
+ */
+function DatePicker({ id, majority }) {
   const defaultMessage = "Select a date";
+  // USESTATES
   const [firstAttempt, setFirstAttempt] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [MonthSelectIsVisible, setMonthSelectIsVisible] = useState(false);
@@ -56,6 +59,7 @@ function DatePicker({ id, majority, setValue }) {
     return date;
   });
 
+  // USEMEMO
   const actualDay = useMemo(() => {
     const day = temporaryDate.getDate();
     return day.toLocaleString("en-US", { minimumIntegerDigits: 2 });
@@ -67,7 +71,6 @@ function DatePicker({ id, majority, setValue }) {
   const actualYear = useMemo(() => {
     return temporaryDate.getFullYear();
   }, [temporaryDate]);
-
   const daysInCurrentMonth = useMemo(() => {
     return getDaysInMonth(actualYear, actualMonth);
   }, [actualYear, actualMonth]);
@@ -90,6 +93,10 @@ function DatePicker({ id, majority, setValue }) {
     }
   }, [actualDay, actualMonth, actualYear, firstAttempt]);
 
+  /**
+   * @description Close the DatePicker window if an outside click is detected
+   * @param {Event} event
+   */
   const handleClickOutside = (event) => {
     if (
       datePickerRef.current &&
@@ -124,27 +131,18 @@ function DatePicker({ id, majority, setValue }) {
       >
         {actualDay && actualMonth && actualYear ? dateDisplay : defaultMessage}
       </div>
+      {/* DATEPICKER WINDOW */}
       {isVisible && (
         <div className="calendar" ref={datePickerRef}>
+          {/* MONTH SELECTION COMPONENT*/}
           {MonthSelectIsVisible && (
-            <div className="calendar__page">
-              {NAMES_BY_MONTH.EN.map((month, indice) => {
-                return (
-                  <div
-                    key={month}
-                    onClick={() => {
-                      const updateDate = new Date(temporaryDate);
-                      updateDate.setMonth(indice);
-                      setTemporaryDate(updateDate);
-                      setMonthSelectIsVisible(false);
-                    }}
-                  >
-                    {month}
-                  </div>
-                );
-              })}
-            </div>
+            <MonthsScreen
+              date={temporaryDate}
+              setDate={setTemporaryDate}
+              setIsClosed={setMonthSelectIsVisible}
+            />
           )}
+          {/* YEARS SELECTION COMPONENT*/}
           {yearSelectIsVisible && (
             <YearsScreen
               date={temporaryDate}
@@ -153,7 +151,9 @@ function DatePicker({ id, majority, setValue }) {
             />
           )}
 
+          {/* NAVIGATION */}
           <div className="calendar__navigation">
+            {/* LEFT ARROW BUTTON*/}
             <i
               className="fa-solid fa-chevron-left"
               onClick={() => {
@@ -162,6 +162,7 @@ function DatePicker({ id, majority, setValue }) {
                 setTemporaryDate(updatedDate);
               }}
             ></i>
+            {/* HOME BUTTON */}
             <i
               className="fa-solid fa-house"
               onClick={() => {
@@ -170,18 +171,21 @@ function DatePicker({ id, majority, setValue }) {
                 setTemporaryDate(resetDate);
               }}
             ></i>
+            {/* MONTH SELECTION BUTTON */}
             <div
               className="calendar__navigation--month"
               onClick={() => setMonthSelectIsVisible(!MonthSelectIsVisible)}
             >
               {NAMES_BY_MONTH.EN[actualMonth - 1]}
             </div>
+            {/* YEARS SELECTION BUTTON */}
             <div
               className="calendar__navigation--year"
               onClick={() => setYearSelectIsVisible(!yearSelectIsVisible)}
             >
               {actualYear}
             </div>
+            {/* RIGHT ARROW BUTTON */}
             <i
               className="fa-solid fa-chevron-right"
               onClick={() => {
@@ -192,7 +196,7 @@ function DatePicker({ id, majority, setValue }) {
             ></i>
           </div>
 
-          {/* Nom des jours de la semaine */}
+          {/* NAME REPRESENTING DAYS OF THE WEEK */}
           <div className="calendar__grid">
             {NAMES_BY_DAYS.EN.map((day) => {
               return (
@@ -203,12 +207,12 @@ function DatePicker({ id, majority, setValue }) {
             })}
           </div>
 
-          {/* Jours du calendrier */}
+          {/* CALENDAR DAYS */}
           <div className="calendar__grid">
-            {/* Derniers jours du mois précédent */}
+            {/* LAST DAYS OF THE PREVIOUS MONTH */}
             <DisplayPreviousDays date={temporaryDate} />
 
-            {/* Jours du mois en cours */}
+            {/* ACTUAL MONTH DAYS */}
             {daysInCurrentMonth.map((day) => {
               return (
                 <div
@@ -230,15 +234,11 @@ function DatePicker({ id, majority, setValue }) {
                   }}
                 >
                   {day}
-                  {console.log(parseInt(actualDay, 10) === day)}
-                  {console.log(
-                    parseInt(actualMonth, 10) === currentDate.getMonth() + 1
-                  )}
                 </div>
               );
             })}
 
-            {/* Premier(s) jour(s) du mois suivant */}
+            {/* FIRST DAYS OF THE NEXT MONTH */}
             <RemainingDaysToDisplay
               maxArrayHeight={maxArrayHeight}
               firstDayOfTheMonth={firstDayOfTheMonth}

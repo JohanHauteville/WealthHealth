@@ -3945,10 +3945,10 @@ duplexer@^0.1.2:
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
   integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
 
-easy-react-table-component@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/easy-react-table-component/-/easy-react-table-component-1.0.8.tgz#29384d57d101d617e3dcd652ba2a332f063b9f49"
-  integrity sha512-q84joaU/daHLmGnqw+II2Qddc71q4YwPoSg+8vS6DhkmXRHK1UzIfiZyaWh9cZlxE59YEm9eEJ9klsK9NvIAKQ==
+easy-react-table-component@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/easy-react-table-component/-/easy-react-table-component-1.0.9.tgz#ff02086e062179ac961a8d1e2c7c9e8d7dd12f6b"
+  integrity sha512-V6W0KbR9a4LKg0QZvz+TlnzC519bHzsTv1UjU0CfrnQFTR3VBVJCDw4Z1n5k+e+9S6W2Ff/wASGEGOkruAZJcQ==
   dependencies:
     "@testing-library/jest-dom" "^5.14.1"
     "@testing-library/react" "^13.0.0"
