@@ -1,18 +1,31 @@
 .calendar-container {
   position: relative;
-}
-.calendar-input {
-  background-color: rgba(115, 131, 44, 0.0352941176);
   border: 1px solid #73832c;
   border-radius: 5px;
   height: 32px;
   min-width: 100px;
+  margin-bottom: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+.calendar-input {
+  background-color: rgba(115, 131, 44, 0.0352941176);
+  // border: 1px solid #73832c;
+  // border-radius: 5px;
+  // height: 32px;
+  // min-width: 100px;
+  // cursor: pointer;
+  // display: flex;
+  // align-items: center;
   padding-left: 10px;
   z-index: 10;
-  margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  // margin-bottom: 10px;
+  // color: #73832c;
 }
 .calendar__page {
   cursor: pointer;
@@ -82,6 +95,7 @@
     }
     &--day {
       //   outline: 1px solid rgb(151, 166, 85);
+      color: #000000b1;
       display: flex;
       border-radius: 100%;
       justify-content: center;

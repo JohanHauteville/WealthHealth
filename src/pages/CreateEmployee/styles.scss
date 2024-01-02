@@ -70,10 +70,15 @@
     height: 30px;
     border-radius: 5px;
     background-color: #73832c09;
-    // border-color: #73832c;
     border: 1px solid #73832c;
     margin-bottom: 10px;
     padding-left: 10px;
+  }
+  &__input {
+    input {
+      width: calc(100% - 14px);
+    }
+    position: relative;
   }
   select {
     height: 34px;
@@ -84,14 +89,35 @@
     border-radius: 10px;
     border: 1px solid #73832c7c;
   }
+
   .error {
     border: 1px solid #f51919;
     color: #f51919;
     font-weight: 500;
+    position: relative;
   }
+
+  .error + .test-error::after {
+    content: "\f00d";
+    font: var(--fa-font-solid);
+    color: #f51919;
+    position: absolute;
+    top: 8px;
+    right: 20px;
+  }
+
   .valid {
     border: 1px solid #73832c;
     color: #73832c;
+  }
+
+  .valid + .test-error::after {
+    content: "\f00c";
+    font: var(--fa-font-solid);
+    color: #73832c;
+    position: absolute;
+    top: 8px;
+    right: 20px;
   }
 }
 

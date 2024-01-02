@@ -213,14 +213,9 @@ function DatePicker({ id, majority, setValue }) {
               return (
                 <div
                   className={
-                    parseInt(actualDay, 10) ===
-                      day.toLocaleString("en-US", {
-                        minimumIntegerDigits: 2,
-                      }) &&
-                    parseInt(actualMonth, 10) ===
-                      (currentDate.getMonth() + 1).toLocaleString("en-US", {
-                        minimumIntegerDigits: 2,
-                      })
+                    parseInt(actualDay, 10) === day &&
+                    parseInt(actualMonth, 10) === currentDate.getMonth() + 1 &&
+                    parseInt(actualYear, 10) === currentDate.getFullYear()
                       ? "calendar__grid--actual-day"
                       : "calendar__grid--day"
                   }
@@ -235,6 +230,10 @@ function DatePicker({ id, majority, setValue }) {
                   }}
                 >
                   {day}
+                  {console.log(parseInt(actualDay, 10) === day)}
+                  {console.log(
+                    parseInt(actualMonth, 10) === currentDate.getMonth() + 1
+                  )}
                 </div>
               );
             })}

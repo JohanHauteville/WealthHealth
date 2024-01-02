@@ -69,6 +69,5 @@ export function getProfile() {
     address: getAdressInfos(),
     department: document.getElementById("department").innerHTML,
   };
-  console.log(profileinformation);
   return profileinformation;
 }

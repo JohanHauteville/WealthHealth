@@ -5,7 +5,6 @@ import { LIST_TO_DISPLAY } from "../../utils/constants";
 
 function EmployeesList() {
   const { employees } = useSelector((state) => state.listOfEmployees);
-  console.log(employees);
   return (
     <main className="employees-page">
       <h2>Current Employees</h2>

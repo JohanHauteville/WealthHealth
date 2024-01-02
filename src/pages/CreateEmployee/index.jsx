@@ -27,8 +27,8 @@ function CreateEmployee() {
       checkInput("last-name", "NAME") &&
       checkInput("city", "NAME") &&
       checkInput("street", "STREET") &&
-      checkInput("date-of-birth", "DATE") &&
-      checkInput("start-date", "DATE") &&
+      checkInput("date-of-birth", "DATE", "", true) &&
+      checkInput("start-date", "DATE", "", true) &&
       checkInput("zip-code", "ZIPCODE") &&
       checkInput("department", "NAME", defaultNameDepartment, true) &&
       checkInput("state", "NAME", defaultNameState, true)
@@ -57,50 +57,69 @@ function CreateEmployee() {
             <h2>Create Employee</h2>
             <form action="#" className="create-form">
               <label htmlFor="first-name">First Name</label>
-
-              <input
-                type="text"
-                id="first-name"
-                onBlur={() => checkInput("first-name", "NAME")}
-              />
+              <div className="create-form__input">
+                <input
+                  type="text"
+                  id="first-name"
+                  onBlur={() => checkInput("first-name", "NAME")}
+                />
+                <div className="test-error"></div>
+              </div>
 
               <label htmlFor="last-name">Last Name</label>
-              <input
-                type="text"
-                id="last-name"
-                onBlur={() => checkInput("last-name", "NAME")}
-              />
+              <div className="create-form__input">
+                <input
+                  type="text"
+                  id="last-name"
+                  onBlur={() => checkInput("last-name", "NAME")}
+                />
+                <div className="test-error"></div>
+              </div>
 
               <label htmlFor="date-of-birth">Date of Birth</label>
-              <DatePicker id="date-of-birth" majority={true} />
+              <div className="create-form__input">
+                <DatePicker id="date-of-birth" majority={true} />
+                <div className="test-error"></div>
+              </div>
 
               <label htmlFor="start-date">Start Date</label>
-              <DatePicker id="start-date" />
+              <div className="create-form__input">
+                <DatePicker id="start-date" />
+                <div className="test-error"></div>
+              </div>
 
               <fieldset className="form-address">
                 <legend>Address</legend>
 
                 <label htmlFor="street">Street</label>
-                <input
-                  id="street"
-                  type="text"
-                  onBlur={() => checkInput("street", "STREET")}
-                />
+                <div className="create-form__input">
+                  <input
+                    id="street"
+                    type="text"
+                    onBlur={() => checkInput("street", "STREET")}
+                  />
+                  <div className="test-error"></div>
+                </div>
 
                 <label htmlFor="city">City</label>
-                <input
-                  id="city"
-                  type="text"
-                  onBlur={() => checkInput("city", "NAME")}
-                />
+                <div className="create-form__input">
+                  <input
+                    id="city"
+                    type="text"
+                    onBlur={() => checkInput("city", "NAME")}
+                  />
+                  <div className="test-error"></div>
+                </div>
 
                 <label htmlFor="state">State</label>
-                {/* <select name="state" id="state"></select> */}
-                <Dropdown
-                  name="state"
-                  defaultName={defaultNameState}
-                  itemList={STATES_LIST}
-                />
+                <div className="create-form__input">
+                  <Dropdown
+                    name="state"
+                    defaultName={defaultNameState}
+                    itemList={STATES_LIST}
+                  />
+                  <div className="test-error"></div>
+                </div>
 
                 <label htmlFor="zip-code">Zip Code</label>
                 <input
@@ -110,11 +129,14 @@ function CreateEmployee() {
                 />
               </fieldset>
               <label htmlFor="department">Department</label>
-              <Dropdown
-                name="department"
-                defaultName={defaultNameDepartment}
-                itemList={DEPARTMENT_LIST}
-              />
+              <div className="create-form__input">
+                <Dropdown
+                  name="department"
+                  defaultName={defaultNameDepartment}
+                  itemList={DEPARTMENT_LIST}
+                />
+                <div className="test-error"></div>
+              </div>
             </form>
             <button type="submit" onClick={handleSubmit}>
               Save
