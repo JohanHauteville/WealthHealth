@@ -1,9 +1,16 @@
 // import { useEffect, useState } from "react";
 import "./styles.scss";
-
-function Modal({ message, visible, error, setVisible }) {
-  // const [isVisible, setIsVisible] = useState(visible);
-
+import * as modalActions from "../../features/modal";
+import { useDispatch } from "react-redux";
+/**
+ *
+ * @param {String} message
+ * @param {Boolean} visible
+ * @param {Boolean} error
+ * @returns
+ */
+function Modal({ message, visible, error }) {
+  const dispatch = useDispatch();
   return (
     <div
       className={
@@ -19,7 +26,7 @@ function Modal({ message, visible, error, setVisible }) {
         <p className="modal__message">{message}</p>
         <i
           className="fa-solid fa-circle-xmark icon icon--close"
-          onClick={() => setVisible(!visible)}
+          onClick={() => dispatch(modalActions.hideMessage())}
         ></i>
       </div>
     </div>

@@ -26,6 +26,7 @@ root.render(
             path={APP_ROUTES.CREATE_EMPLOYEE}
             element={<CreateEmployee />}
           />
+
           <Route path={APP_ROUTES.HOME} element={<EmployeesList />} />
           <Route path={APP_ROUTES.ERROR} element={<Error />} />
         </Routes>

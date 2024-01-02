@@ -2,17 +2,16 @@ import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
-import { useState } from "react";
 import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 import DatePicker from "../../components/DatePicker";
 import { checkInput, getProfile } from "./functions";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import * as employeeActions from "../../features/employees";
+import * as modalActions from "../../features/modal";
 
 function CreateEmployee() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalError, setModalError] = useState(true);
+  const { visible, message, error } = useSelector((state) => state.modal);
   const defaultNameDepartment = "Select a department";
   const defaultNameState = "Select a State";
 
@@ -34,13 +33,21 @@ function CreateEmployee() {
       checkInput("state", "NAME", defaultNameState, true)
     ) {
       saveEmployee();
-      setModalError(false);
-      setModalMessage("Employee added !");
-      setModalVisible(true);
+      dispatch(
+        modalActions.displayMessage({
+          message: "Employee added !",
+          visible: true,
+          error: false,
+        })
+      );
     } else {
-      setModalError(true);
-      setModalMessage("Please correctly fill all inputs");
-      setModalVisible(true);
+      dispatch(
+        modalActions.displayMessage({
+          message: "Please correctly fill all inputs",
+          visible: true,
+          error: true,
+        })
+      );
     }
   }
 
@@ -142,12 +149,7 @@ function CreateEmployee() {
               Save
             </button>
           </div>
-          <Modal
-            visible={modalVisible}
-            setVisible={() => setModalVisible()}
-            message={modalMessage}
-            error={modalError}
-          />
+          <Modal visible={visible} message={message} error={error} />
         </section>
       </main>
     </>

@@ -1,5 +1,12 @@
 import { STATES_LIST } from "../../utils/constants";
-
+/**
+ *
+ * @param {String} id
+ * @param {String} type
+ * @param {String} defaultName
+ * @param {Boolean} parentTarget
+ * @returns
+ */
 export function checkInput(id, type, defaultName, parentTarget) {
   const REGEX_TYPE = {
     ZIPCODE: /^\d{5}$/,
