@@ -39,14 +39,12 @@
       color: white;
     }
   }
+
   &__right-side {
     padding: 20px;
     width: 50%;
     display: flex;
     flex-direction: column;
-    // h2 {
-    //   text-transform: capitalize;
-    // }
     form,
     .form-address {
       display: flex;
@@ -55,6 +53,15 @@
     button {
       margin-top: 14px;
     }
+  }
+  @media (max-width: 800px) {
+    &__left-side {
+      display: none;
+    }
+    &__right-side {
+      width: 100%;
+    }
+    width: 90%;
   }
 }
 

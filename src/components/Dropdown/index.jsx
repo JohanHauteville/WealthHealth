@@ -1,14 +1,15 @@
-/**
- * DropDown component
- *
- * @author Johan
- * @version 1.1
- */
-
 import { useEffect, useState, useRef } from "react";
 import "./styles.scss";
 
-function Dropdown({ defaultName, name, itemList, onChange }) {
+/**
+ *
+ * @name DropDown-component
+ * @param {String} defaultName default name to display before the user select an option
+ * @param {String} name name used for the id
+ * @param {Array of String - Array of Object} itemList Should be an array of string. If it's an array of objects, "name" property must be present .
+ * @returns A DropDown component
+ */
+function Dropdown({ defaultName, name, itemList }) {
   const [isSelectOpened, setIsSelectOpened] = useState(false);
   const [selectValue, setSelectValue] = useState(defaultName);
   const [icon, setIcon] = useState("fa-solid fa-chevron-down");
@@ -68,7 +69,6 @@ function Dropdown({ defaultName, name, itemList, onChange }) {
                   key={item}
                   onClick={() => {
                     setSelectValue(item);
-                    // onChange(item);
                     setIsSelectOpened(!isSelectOpened);
                   }}
                 >
@@ -83,7 +83,6 @@ function Dropdown({ defaultName, name, itemList, onChange }) {
                   key={item.name}
                   onClick={() => {
                     setSelectValue(item.name);
-                    // onChange(item.abbreviation);
                     setIsSelectOpened(!isSelectOpened);
                   }}
                 >

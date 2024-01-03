@@ -1,8 +1,8 @@
 import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
+import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
-import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
 import DatePicker from "../../components/DatePicker";
 import { checkInput, getProfile } from "./functions";
 import { useDispatch } from "react-redux";
@@ -54,6 +54,7 @@ function CreateEmployee() {
   return (
     <>
       <main className="page">
+        <Modal visible={visible} message={message} error={error} />
         <section className="create-form-container">
           <div className="create-form-container__left-side">
             <h1>HRnet</h1>
@@ -149,7 +150,6 @@ function CreateEmployee() {
               Save
             </button>
           </div>
-          <Modal visible={visible} message={message} error={error} />
         </section>
       </main>
     </>

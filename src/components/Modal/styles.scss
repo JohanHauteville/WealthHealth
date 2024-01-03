@@ -1,6 +1,7 @@
 .modal {
   &__background {
-    position: absolute;
+    z-index: 180;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: #00000055;
@@ -21,6 +22,7 @@
     border-radius: 10px;
     padding: 5px 40px 5px 20px;
     box-shadow: 5px 2px 20px 10px rgb(0 0 0 / 12%);
+    z-index: 200;
   }
   &__message {
     font-weight: 500;

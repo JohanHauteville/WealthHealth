@@ -50,6 +50,9 @@
   top: 34px;
   padding: 10px;
   box-shadow: 5px 2px 20px 10px rgb(0 0 0 / 12%);
+
+  // min-width: calc(80% - 20px);
+  // max-width: calc(100% - 20px);
   &__navigation {
     position: relative;
     height: 30px;
@@ -74,9 +77,11 @@
       font-weight: 700;
     }
   }
+
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
     width: 350px;
     &--actual-day {
       //   outline: 1px solid rgb(151, 166, 85);
@@ -142,6 +147,12 @@
       justify-content: center;
       align-items: center;
       //   margin-bottom: 5px;
+    }
+  }
+  @media (max-width: 500px) {
+    width: calc(100% - 20px);
+    &__grid {
+      width: 100%;
     }
   }
 }

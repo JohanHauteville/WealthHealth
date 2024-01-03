@@ -21,4 +21,14 @@ header {
     display: flex;
     gap: 20px;
   }
+  @media (max-width: 400px) {
+    .header__title {
+      margin-left: 20px;
+      font-size: 20px;
+    }
+    ul {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+  }
 }
