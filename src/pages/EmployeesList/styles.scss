@@ -9,4 +9,7 @@
 
 .table-container {
   width: 80%;
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 }

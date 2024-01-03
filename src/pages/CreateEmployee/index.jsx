@@ -84,13 +84,13 @@ function CreateEmployee() {
                 <div className="test-error"></div>
               </div>
 
-              <label htmlFor="date-of-birth">Date of Birth</label>
+              <label>Date of Birth</label>
               <div className="create-form__input">
                 <DatePicker id="date-of-birth" majority={true} />
                 <div className="test-error"></div>
               </div>
 
-              <label htmlFor="start-date">Start Date</label>
+              <label>Start Date</label>
               <div className="create-form__input">
                 <DatePicker id="start-date" />
                 <div className="test-error"></div>
@@ -119,7 +119,7 @@ function CreateEmployee() {
                   <div className="test-error"></div>
                 </div>
 
-                <label htmlFor="state">State</label>
+                <label>State</label>
                 <div className="create-form__input">
                   <Dropdown
                     name="state"
@@ -136,7 +136,7 @@ function CreateEmployee() {
                   onBlur={() => checkInput("zip-code", "ZIPCODE")}
                 />
               </fieldset>
-              <label htmlFor="department">Department</label>
+              <label>Department</label>
               <div className="create-form__input">
                 <Dropdown
                   name="department"
