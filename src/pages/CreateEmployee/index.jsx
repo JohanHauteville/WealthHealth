@@ -5,8 +5,8 @@ import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
 import DatePicker from "../../components/DatePicker";
 import { checkInput, getProfile } from "./functions";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import * as employeeActions from "../../features/employees";
 import * as modalActions from "../../features/modal";
 
@@ -14,7 +14,6 @@ function CreateEmployee() {
   const { visible, message, error } = useSelector((state) => state.modal);
   const defaultNameDepartment = "Select a department";
   const defaultNameState = "Select a State";
-
   const dispatch = useDispatch();
   function saveEmployee() {
     dispatch(employeeActions.add(getProfile()));
@@ -54,7 +53,12 @@ function CreateEmployee() {
   return (
     <>
       <main className="page">
-        <Modal visible={visible} message={message} error={error} />
+        <Modal
+          visible={visible}
+          message={message}
+          error={error}
+          closeLink={error ? null : "./"}
+        />
         <section className="create-form-container">
           <div className="create-form-container__left-side">
             <h1>HRnet</h1>

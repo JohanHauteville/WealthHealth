@@ -8,10 +8,20 @@ import { useDispatch } from "react-redux";
  * @param {String} message
  * @param {Boolean} visible
  * @param {Boolean} error
+ * @param {URL} closeLink
  * @returns modal component
  */
-function Modal({ message, visible, error }) {
+
+import { useNavigate } from "react-router";
+
+function Modal({ message, visible, error, closeLink }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleClose() {
+    closeLink && navigate("/");
+    dispatch(modalActions.hideMessage());
+  }
   return (
     <div
       className={
@@ -27,7 +37,8 @@ function Modal({ message, visible, error }) {
         <p className="modal__message">{message}</p>
         <i
           className="fa-solid fa-circle-xmark icon icon--close"
-          onClick={() => dispatch(modalActions.hideMessage())}
+          // onClick={() => dispatch(modalActions.hideMessage())}
+          onClick={() => handleClose()}
         ></i>
       </div>
     </div>
