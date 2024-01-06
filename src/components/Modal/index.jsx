@@ -2,18 +2,15 @@
 import "./styles.scss";
 import * as modalActions from "../../features/modal";
 import { useDispatch } from "react-redux";
-
+import { useNavigate } from "react-router";
 /**
  * @name Modal-react-component
  * @param {String} message
  * @param {Boolean} visible
  * @param {Boolean} error
  * @param {URL} closeLink
- * @returns modal component
+ * @returns {JSX.Element}
  */
-
-import { useNavigate } from "react-router";
-
 function Modal({ message, visible, error, closeLink }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
