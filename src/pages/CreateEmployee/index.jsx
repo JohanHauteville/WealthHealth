@@ -57,7 +57,7 @@ function CreateEmployee() {
           visible={visible}
           message={message}
           error={error}
-          closeLink={error ? null : "./"}
+          closeLink={error ? null : "/"}
         />
         <section className="create-form-container">
           <div className="create-form-container__left-side">

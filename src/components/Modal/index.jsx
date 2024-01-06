@@ -16,7 +16,7 @@ function Modal({ message, visible, error, closeLink }) {
   const navigate = useNavigate();
 
   function handleClose() {
-    closeLink && navigate("/");
+    closeLink && navigate(closeLink);
     dispatch(modalActions.hideMessage());
   }
   return (
