@@ -1,6 +1,10 @@
 import logo from "../../assets/img/create-employee.png";
 import "./styles.scss";
-import { DEPARTMENT_LIST, STATES_LIST } from "../../utils/constants";
+import {
+  DEPARTMENT_LIST,
+  STATES_LIST,
+  APP_ROUTES,
+} from "../../utils/constants";
 import Modal from "../../components/Modal";
 import Dropdown from "../../components/Dropdown";
 import DatePicker from "../../components/DatePicker";
@@ -57,7 +61,7 @@ function CreateEmployee() {
           visible={visible}
           message={message}
           error={error}
-          closeLink={error ? null : "/"}
+          closeLink={error ? null : APP_ROUTES.HOME}
         />
         <section className="create-form-container">
           <div className="create-form-container__left-side">

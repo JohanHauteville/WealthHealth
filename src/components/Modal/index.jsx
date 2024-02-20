@@ -34,7 +34,6 @@ function Modal({ message, visible, error, closeLink }) {
         <p className="modal__message">{message}</p>
         <i
           className="fa-solid fa-circle-xmark icon icon--close"
-          // onClick={() => dispatch(modalActions.hideMessage())}
           onClick={() => handleClose()}
         ></i>
       </div>
